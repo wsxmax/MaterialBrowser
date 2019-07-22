@@ -1,0 +1,65 @@
+precision mediump float;
+varying vec2 fragmentTextureCoordinate;
+varying vec3 vertex_normal;
+varying vec3 cameraDirection;
+varying vec3 vertex_position;
+uniform sampler2D baseColorTexture;
+uniform vec2 current_color_position;
+uniform float current_hue;
+uniform samplerCube environmentTexture;
+uniform float roughness;
+uniform float metalic;
+uniform float specular;
+
+vec2 ccp = vec2(current_color_position.x,-current_color_position.y);
+
+float hue(float x){
+return (x+1.0)*3.0/2.0;
+}
+
+vec3 getColor(float hue){
+float second = fract(hue);
+float first = 1.0-fract(hue);
+
+if(floor(hue)==0.0){
+return normalize(vec3(first,second,0.0));
+}
+if(floor(hue)==1.0){
+return normalize(vec3(0.0,first,second));
+}
+if(floor(hue)==2.0){
+return normalize(vec3(second,0.0,first));
+}
+}
+
+
+
+
+
+float noise(float seed){
+return abs(fract(sin(seed*365.0)*365.0));
+}
+
+vec3 hash(vec3 seed){
+float base = fract(noise(seed.x)+noise(seed.y)+noise(seed.z));
+return vec3(noise(seed.x+base),noise(seed.y+base),noise(seed.z+base));
+}
+
+void main()
+{
+float first = -ccp.x/2.0+0.5;
+float second = ccp.x/2.0+0.5;
+vec3 hue_color = getColor(hue(current_hue));
+vec3 white = vec3(1.0,1.0,1.0);
+vec3 saturened_color = first*white+second*hue_color;
+vec3 color = saturened_color*(ccp.y/2.0+0.5);
+
+  vec4 reflection =  textureCube(environmentTexture,normalize(reflect(normalize(cameraDirection),normalize(normalize(vertex_normal)+roughness*normalize(hash(vertex_position))))))/3.0+textureCube(environmentTexture,normalize(reflect(normalize(cameraDirection),normalize(normalize(vertex_normal)+roughness*normalize(hash(vertex_position.yzx))))))/3.0+textureCube(environmentTexture,normalize(reflect(normalize(cameraDirection),normalize(normalize(vertex_normal)+roughness*normalize(hash(vertex_position.zxy))))))/3.0;
+  vec4 baseColor = vec4(color,1.0);
+  vec4 albedo = baseColor*(textureCube(environmentTexture,normalize(reflect(normalize(cameraDirection),normalize(normalize(vertex_normal)+normalize(hash(vertex_position))))))/3.0+textureCube(environmentTexture,normalize(reflect(normalize(cameraDirection),normalize(normalize(vertex_normal)+normalize(hash(vertex_position.yzx))))))/3.0+textureCube(environmentTexture,normalize(reflect(normalize(cameraDirection),normalize(normalize(vertex_normal)+normalize(hash(vertex_position.zxy))))))/3.0);
+
+  vec4 metalColor = baseColor*reflection;
+  vec4 inculatorColor = specular*reflection + (1.0-specular)*albedo;
+
+  gl_FragColor = metalColor*metalic+inculatorColor*(1.0-metalic);
+}

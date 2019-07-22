@@ -1,0 +1,8 @@
+precision mediump float;
+varying vec3 box_normal;
+uniform samplerCube skyBoxTexture;
+void main()
+{
+  gl_FragColor = textureCube(skyBoxTexture,normalize(box_normal));
+  //gl_FragColor = vec4(1.0,1.0,1.0,1.0);
+}

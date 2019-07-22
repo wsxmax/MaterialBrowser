@@ -1,0 +1,54 @@
+<html>
+<head>
+  <title>
+    3DModelBroswer
+  </title>
+</head>
+<style>
+body{
+  position: fixed;width: 100%;height: 100%; background-color: transparent; padding: 0px;display: block;
+  border: 0px;margin: 0px auto;
+}
+#roughness{
+  z-index: 2}
+#parameters{
+  position: absolute;top: 10%;left: 70%;z-index: 2
+}
+#mainCanvas{
+  position: fixed;width: 100%;height: 100%; object-fit: cover;object-position: bottom;z-index: 1; margin:0px;padding: 0px;display: block;border: 0px;
+}
+</style>
+<body onload="broswerStart()">
+  <div id="parameters" >
+    <div>
+     <canvas id="huePicker" width=300 height="20">
+     </canvas>
+   </div>
+   <br/>
+   <div>
+     <canvas id="colorPicker" width=300 height=300>
+     </canvas>
+   </div>
+   <div>
+     <table>
+       <tr><td><font color = "white">Roughness</font></td><td><input type="range" id="roughness" min="0" max="100"></input></td>
+       </tr>
+       <tr><td><font color = "white">Metalic</font></td><td><input type="range" id="metalic" min="0" max="100"></input></td>
+       </tr>
+       <tr><td><font color = "white">Specular</font></td><td><input type="range" id="specular" min="0" max="100"></input></td>
+       </tr>
+     </table>
+   </div>
+  </div>
+  <canvas id="mainCanvas" width="1920",height="1080">
+    here should be the model display
+  </canvas>
+  <script src="Libraries/gl-matrix.js"></script>
+  <script src="viewCtrl.js"></script>
+  <script src="objctlclztn.js"></script>
+  <script src="LodingFiles.js"></script>
+  <script src="modelBrowser.js"></script>
+  <script src="cameraControls.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

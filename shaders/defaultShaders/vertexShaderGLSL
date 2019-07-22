@@ -1,0 +1,22 @@
+precision mediump float;
+
+attribute vec3 POSITION;
+attribute vec3 NORMAL;
+attribute vec3 TANGENT;
+attribute vec2 TEXCOORD_0;
+
+uniform mat4 matrix;
+uniform vec3 direction;
+varying vec2 fragmentTextureCoordinate;
+varying vec3 vertex_normal;
+varying vec3 vertex_position;
+varying vec3 cameraDirection;
+void main()
+{
+  vertex_normal = NORMAL;
+  cameraDirection = normalize(direction);
+  fragmentTextureCoordinate = TEXCOORD_0;
+  vertex_position = POSITION;
+  gl_Position =
+  matrix*vec4(POSITION, 1.0);
+}

@@ -1,0 +1,15 @@
+precision mediump float;
+
+attribute vec3 skyPOSITION;
+attribute vec3 NORMAL;
+attribute vec3 TANGENT;
+
+uniform mat4 matrix;
+varying vec2 fragmentTextureCoordinate;
+varying vec3 box_normal;
+void main()
+{
+  vec4 position = matrix*vec4(skyPOSITION, 1.0);
+  box_normal = normalize(skyPOSITION);
+  gl_Position = vec4(position.x,position.y,position.z,position.w);
+}
