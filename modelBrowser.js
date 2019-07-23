@@ -385,7 +385,7 @@ function extendRenderContext (contextObject){
     }
   }
 
-  contextObject.makeProgramFromURI('/shaders/skyboxShaders/vertexShaderGLSL','/shaders/skyboxShaders/fragmentShaderGLSL',function(skyboxProgram){
+  contextObject.makeProgramFromURI('https://wsxmax.github.io/MaterialBrowser/shaders/skyboxShaders/vertexShaderGLSL','https://wsxmax.github.io/MaterialBrowser/shaders/skyboxShaders/fragmentShaderGLSL',function(skyboxProgram){
     contextObject.skyboxRenderProgram = skyboxProgram;
     var verticesBuffer = contextObject.createBuffer();
     var verticiesIndicesBuffer = contextObject.createBuffer();
