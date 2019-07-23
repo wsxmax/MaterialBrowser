@@ -120,14 +120,14 @@ function extendRenderContext (contextObject){
   contextObject.makeProgramFromURI = function(vertexShaderURI,fragmentShaderURI,callback){
     var vertexShaderText = null;
     var fragmentShaderText = null;
-    LoadTextContent(vertexShaderURI+'?='+Math.random(),function(error,textData){
+    LoadTextContent(vertexShaderURI,function(error,textData){
       if(!error){
         vertexShaderText = textData;
         if(fragmentShaderText) callback(contextObject.makeProgramFromText(vertexShaderText,fragmentShaderText));
       }
       else console.log(error);
     });
-    LoadTextContent(fragmentShaderURI+'?='+Math.random(),function(error,textData){
+    LoadTextContent(fragmentShaderURI,function(error,textData){
       if(!error){
         fragmentShaderText = textData;
         if (vertexShaderText) callback(contextObject.makeProgramFromText(vertexShaderText,fragmentShaderText));
