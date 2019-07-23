@@ -27,7 +27,7 @@ var makeHuePicker = function(huePicker){
   huePicker.bufferData(huePicker.ARRAY_BUFFER,new Float32Array(huePickerVertexArray),huePicker.STATIC_DRAW);
   huePicker.vertexArrayBuffer = huePickerVertexBuffer;
   console.log('not making sense');
-  huePicker.makeProgramFromURI('https://wsxmax.github.io/MaterialBrowser/shaders/huePickerShaders/vertexShaderGLSL','https://wsxmax.github.io/MaterialBrowser/shaders/huePickerShaders/fragmentShaderGLSL',function(renderProgram){
+  huePicker.makeProgramFromURI('/shaders/huePickerShaders/vertexShaderGLSL','/shaders/huePickerShaders/fragmentShaderGLSL',function(renderProgram){
     huePicker.bindBuffer(huePicker.ARRAY_BUFFER,huePickerVertexBuffer);
     huePicker.defaultProgram = renderProgram;
     console.log('whats wrong with the hue bar?',renderProgram);
@@ -65,7 +65,7 @@ var makeColorPicker = function(colorPicker){
   colorPicker.bufferData(colorPicker.ARRAY_BUFFER,new Float32Array(colorPickerVertexArray),colorPicker.STATIC_DRAW);
   colorPicker.vertexArrayBuffer = colorPickerVertexBuffer;
   console.log('not making sense');
-  colorPicker.makeProgramFromURI('https://wsxmax.github.io/MaterialBrowser/shaders/colorPickerShaders/vertexShaderGLSL','https://wsxmax.github.io/MaterialBrowser/shaders/colorPickerShaders/fragmentShaderGLSL',function(renderProgram){
+  colorPicker.makeProgramFromURI('/shaders/colorPickerShaders/vertexShaderGLSL','/shaders/colorPickerShaders/fragmentShaderGLSL',function(renderProgram){
     colorPicker.bindBuffer(colorPicker.ARRAY_BUFFER,colorPickerVertexBuffer);
     colorPicker.defaultProgram = renderProgram;
     console.log('whats wrong with the color bar?',renderProgram);
@@ -198,7 +198,7 @@ function broswerStart(){
 //-------------------------------------------------------/loop function definitions-----------------------------------------------
 
 //-----------------------------------------------------main process in order-----------------------------------------------------
-    gl.makeProgramFromURI('https://wsxmax.github.io/MaterialBrowser/shaders/defaultShaders/vertexShaderGLSL','https://wsxmax.github.io/MaterialBrowser/shaders/defaultShaders/fragmentShaderGLSL',function(renderProgram){
+    gl.makeProgramFromURI('/shaders/defaultShaders/vertexShaderGLSL','/shaders/defaultShaders/fragmentShaderGLSL',function(renderProgram){
       gl.defaultProgram = renderProgram;
       programReady = true;
       if (sceneReady) gl.prepareForRender(mainScene,beginLoop);
@@ -212,11 +212,11 @@ function broswerStart(){
       gltfObject.loadImagesFromPath(gltfObject.originalPath);
       gltfObject.loadBufferFromPath(gltfObject.originalPath,function(){
         mainScene.skybox = new skybox('/skybox/cubeTextures/left.jpg',
-        'https://wsxmax.github.io/MaterialBrowser/skybox/cubeTextures/right.jpg',
-        'https://wsxmax.github.io/MaterialBrowser/skybox/cubeTextures/top.jpg',
-        'https://wsxmax.github.io/MaterialBrowser/skybox/cubeTextures/bottom.jpg',
-        'https://wsxmax.github.io/MaterialBrowser/skybox/cubeTextures/front.jpg',
-        'https://wsxmax.github.io/MaterialBrowser/skybox/cubeTextures/back.jpg');
+        '/skybox/cubeTextures/right.jpg',
+        '/skybox/cubeTextures/top.jpg',
+        '/skybox/cubeTextures/bottom.jpg',
+        '/skybox/cubeTextures/front.jpg',
+        '/skybox/cubeTextures/back.jpg');
         gl.bufferObject(gltfObject);
         sceneReady = true;
         if (programReady) gl.prepareForRender(mainScene,beginLoop);
